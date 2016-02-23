@@ -80,19 +80,18 @@ def uscg_scrape():
 	year = str(sys.argv[2])
 	print year
 
-	if year == 2015:
+	if year == "2015":
 		print "herpderp"
-		#r = requests.get("http://boards.law.af.mil/CG_DRB_" + year + " - Discharge Review Board (DRB) .htm")
-		#z = r.text
-		#print z
-		#soup = BeautifulSoup(z, "html.parser")
-		#zz = soup.find_all('a')
-		#os.makedirs('USCGCY' + year)
-		#os.chdir('USCGCY' + year)
+		r = requests.get("http://boards.law.af.mil/CG_DRB_" + year + " - Discharge Review Board (DRB) .htm")
+		z = r.text
+		soup = BeautifulSoup(z, "html.parser")
+		zz = soup.find_all('a')
+		os.makedirs('USCGCY' + year)
+		os.chdir('USCGCY' + year)
 
 	else:
 		print "nope"
-		"""
+		
 		r = requests.get("http://boards.law.af.mil/CG_DRB_" + year + "%20-%20Discharge%20Review%20Board%20%28DRB%29.htm")
 		z = r.text
 		soup = BeautifulSoup(z, "html.parser")
@@ -105,10 +104,12 @@ def uscg_scrape():
 		file_link = 'http://boards.law.af.mil/' + x['href']
 		foo = x['href']
 
-		convert_foo = str(foo[-17:])
+		convert_foo = str(foo[-14:])
 		print convert_foo
-		"""
-		"""
+
+		# write a function needs to take the %001 and decode it.
+
+		
 		if file_link.endswith('pdf'):
 			file_download = requests.get(file_link)
 			holder = StringIO.StringIO()
@@ -121,7 +122,7 @@ def uscg_scrape():
 				sleep(2)
 		else:
 			print 'pass'
-		"""
+		
 def usmc_scrape():
 	year = str(sys.argv[2])
 	r = requests.get("http://boards.law.af.mil/ARMY_DRB_CY" + year + ".htm")
