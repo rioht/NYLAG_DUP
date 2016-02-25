@@ -7,7 +7,6 @@ import os
 from time import sleep
 from bs4 import BeautifulSoup
 
-# Functions #
 
 """
 Scraper
@@ -40,6 +39,24 @@ Scraper
 
 
 """
+# Supporting Functions #
+
+def url_decode(foo):
+
+	try:
+
+		xx = foo.replace("%20", " ")
+		yy = xx.replace("%28", "(")
+		decoded_url = yy.replace("%29", ")")
+
+	except:
+
+		pass
+
+	return decoded_url
+
+
+# Functions #
 
 def usar_scrape():
 	year = str(sys.argv[2])
@@ -78,10 +95,13 @@ def usar_scrape():
 def uscg_scrape():
 
 	year = str(sys.argv[2])
-	print year
+	sess = requests.Session()
+	adapter = requests.adapters.HTTPAdapter(max_retries=10)
+	decoded_url = "a string"
 
 	if year == "2015":
-		print "herpderp"
+		
+		sess.mount("http://boards.law.af.mil/CG_DRB_" + year + " - Discharge Review Board (DRB) .htm", adapter)
 		r = requests.get("http://boards.law.af.mil/CG_DRB_" + year + " - Discharge Review Board (DRB) .htm")
 		z = r.text
 		soup = BeautifulSoup(z, "html.parser")
@@ -105,19 +125,19 @@ def uscg_scrape():
 		foo = x['href']
 
 		convert_foo = str(foo[-14:])
-		print convert_foo
+		print url_decode(convert_foo)
 
 		# write a function needs to take the %001 and decode it.
 
-		
 		if file_link.endswith('pdf'):
-			file_download = requests.get(file_link)
+
+			file_download = requests.get(url_decode(file_link))
 			holder = StringIO.StringIO()
 			holder.write(file_download.text)
 			results = holder.getvalue().encode('utf-8')
 			holder.close()
 
-			with open(convert_foo, 'wb') as f:
+			with open(url_decode(convert_foo), 'wb') as f:
 				f.write(results)
 				sleep(2)
 		else:
@@ -138,7 +158,8 @@ def usmc_scrape():
 		foo = x['href']
 
 		convert_foo = str(foo[-17:])
-		print convert_foo
+		url_decode(convert_foo)
+		print decoded_url
 		
 		if file_link.endswith('txt'):
 			file_download = requests.get(file_link)
