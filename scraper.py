@@ -128,6 +128,8 @@ def uscg_scrape():
 		print url_decode(convert_foo)
 
 		# write a function needs to take the %001 and decode it.
+		# is there a wget for python that I should be using?
+		# check my reference texts for ideas on properly parsing PDFs
 
 		if file_link.endswith('pdf'):
 

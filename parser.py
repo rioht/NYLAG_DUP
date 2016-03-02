@@ -21,7 +21,7 @@ import re
 
   http://boards.law.af.mil/CG_DRB.html      US Coast Guard Discharge Review Board
   	Coast Guard:							2013 001.pdf
-  	
+
 """
 
 # Metadata #
@@ -52,6 +52,13 @@ keys = [
 
 ]
 
+"""
+functions to be written:
+
+1.  scan directory and make list of all .txt files
+2.  loop through list and make regular expression queries
+3.  append (open and create a csv sometime, duh) the results to a spreadsheet.
+"""
 # Functions - Assisting Functions #
 
 def load_keywords():
@@ -281,8 +288,7 @@ def organize():
 
 if __name__ == '__main__':
 	#comment the two lines below for dev/actual vers
-	z = os.getcwd()
-	os.chdir(z + "/../../..")
-	keywords = load_keywords()
-	organize()
+	#z = os.getcwd()
+	#os.chdir(z + "/../../..")
+
 	print "job done"
